@@ -1,6 +1,6 @@
 {
-    "name": "registro_de_miembros",
-    "short_name": "registro_de_miembros",
+    "name": "registro",
+    "short_name": "registro",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

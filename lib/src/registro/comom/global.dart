@@ -1,4 +1,4 @@
 // TODO Implement this library.library mensajero.global;
 
-final String servidor = "https://labopatb.com/mensajeros/";
+final String servidor = "http://localhost:4500/des/";
 String usuarioGlobal = '';

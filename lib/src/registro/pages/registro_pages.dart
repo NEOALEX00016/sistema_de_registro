@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../comom/uptex.dart';
+
 class RegistroPages extends StatefulWidget {
   String usuario;
+  String id;
 
-  RegistroPages(this.usuario);
+  RegistroPages(this.usuario, this.id);
 
   @override
   State<RegistroPages> createState() => _RegistroPagesState();
@@ -127,54 +130,59 @@ class _RegistroPagesState extends State<RegistroPages> {
   TextEditingController distritomunicipal = TextEditingController();
   TextEditingController region = TextEditingController();
   TextEditingController zona = TextEditingController();
+  //
+  TextEditingController cedularefiere = TextEditingController();
+  TextEditingController nombreefiere = TextEditingController();
+  TextEditingController telefonoefiere = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Center(child: const Text('Registro de Miembros'))),
-      body: Stepper(
-        type: StepperType.horizontal,
-        steps: steplist(),
-        currentStep: _activestep,
-        onStepContinue: () {
-          if (_activestep < (steplist().length - 1)) {
-            _activestep += 1;
-          }
-          setState(() {});
-        },
-        onStepCancel: () {
-          if (_activestep == 0) {
-            return;
-          }
-          _activestep -= 1;
-          setState(() {});
-        },
-        controlsBuilder: (BuildContext context, ControlsDetails details) {
-          return Container(
-            margin: EdgeInsets.only(top: 50),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: details.onStepContinue,
-                    child: _activestep < (steplist().length - 1)
-                        ? Text('Siguiente')
-                        : Text('Finalizar'),
-                  ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 900),
+          child: Stepper(
+            type: StepperType.horizontal,
+            steps: steplist(),
+            currentStep: _activestep,
+            onStepContinue: () {
+              if (_activestep < (steplist().length - 1)) {
+                _activestep += 1;
+              }
+              setState(() {});
+            },
+            onStepCancel: () {
+              if (_activestep == 0) {
+                return;
+              }
+              _activestep -= 1;
+              setState(() {});
+            },
+            controlsBuilder: (BuildContext context, ControlsDetails details) {
+              return Container(
+                margin: EdgeInsets.only(top: 50),
+                child: Row(
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: details.onStepContinue,
+                      child: _activestep < (steplist().length - 1)
+                          ? Text('Siguiente')
+                          : Text('Finalizar'),
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    TextButton(
+                      onPressed: details.onStepCancel,
+                      child: Text('Atras'),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: details.onStepCancel,
-                    child: Text('Atras'),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -193,7 +201,9 @@ class _RegistroPagesState extends State<RegistroPages> {
           padding: EdgeInsets.symmetric(horizontal: 15),
           margin: EdgeInsets.only(bottom: 1, top: 10),
           alignment: Alignment.topLeft,
-          child: Text('Municipio'),
+          child: Text(
+            'Municipio',
+          ),
         ),
         _MunicipioGeneral(),
         Container(
@@ -427,6 +437,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration:
             InputDecoration(labelText: 'Nombre(s)', border: InputBorder.none),
@@ -459,6 +470,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration:
             InputDecoration(labelText: 'Apellido(s)', border: InputBorder.none),
@@ -474,6 +486,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration:
             InputDecoration(labelText: 'Apodo', border: InputBorder.none),
@@ -553,6 +566,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Calle,Avenida,Carretera o Manzana',
@@ -569,6 +583,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         keyboardType: TextInputType.number,
         style: TextStyle(fontSize: 20),
         decoration:
@@ -585,6 +600,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Residencial o Condominio', border: InputBorder.none),
@@ -600,6 +616,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Barrio o Sector', border: InputBorder.none),
@@ -615,6 +632,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Paraje o Sección ', border: InputBorder.none),
@@ -630,6 +648,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Ciudad/Municipio', border: InputBorder.none),
@@ -645,6 +664,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Correo Electrónico', border: InputBorder.none),
@@ -660,6 +680,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             labelText: 'Frente Sectorial', border: InputBorder.none),
@@ -675,6 +696,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration:
             InputDecoration(labelText: 'Ocupación', border: InputBorder.none),
@@ -694,6 +716,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
       ),
@@ -708,6 +731,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         controller: municipio,
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
@@ -723,6 +747,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         controller: circunscripcion,
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
@@ -738,6 +763,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         controller: distritomunicipal,
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
@@ -753,6 +779,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         controller: region,
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
@@ -768,6 +795,7 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        inputFormatters: [UpperCaseTextFormatter()],
         controller: zona,
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
@@ -777,7 +805,7 @@ class _RegistroPagesState extends State<RegistroPages> {
 
 //Fin de Datos de la Ubicacion
 
-// Datos del Referido
+// Datos del Referier
 
   Widget _CedulaRefiere() {
     return Container(
@@ -787,6 +815,8 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        controller: cedularefiere,
+        inputFormatters: [UpperCaseTextFormatter(), cedulaformat],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
       ),
@@ -801,6 +831,8 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        controller: nombreefiere,
+        inputFormatters: [UpperCaseTextFormatter()],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
       ),
@@ -815,6 +847,8 @@ class _RegistroPagesState extends State<RegistroPages> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        controller: telefonoefiere,
+        inputFormatters: [UpperCaseTextFormatter(), telefonoformat],
         style: TextStyle(fontSize: 20),
         decoration: InputDecoration(border: InputBorder.none),
       ),

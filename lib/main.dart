@@ -9,12 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Sistema de Registro',
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: 'login',
       routes: {
-        'registro': (BuildContext context) => RegistroPages(''),
-        'login': (BuildContext context) => const LoginPages()
+        'login': (BuildContext context) => const LoginPages(),
+        'registro': (BuildContext context) => RegistroPages('1', '1'),
       },
     );
   }
